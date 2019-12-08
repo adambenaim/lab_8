@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Lab 8</title>
+  <link rel="stylesheet" type="text/css" href="./lab_styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="wrapper">
+      <div class="header">Loader</div>
+      <button class="button" onclick="loadData()">Load INST Data from UMD Server</button>
+      <div class="content">
+        <ol class = "list"></ol>
+      </div>
+      <div class="footer"></div>
+    </div>
+  </div>
+  <script>
+    function loadData() {
+      console.log('https://api.umd.io/v0/courses/list'); 
+      fetch('/api')
+        .then(res => res.json())
+        .then(res => {
+          console.log(res); 
+          return res;
+        })
+        .then(res => res.data.map(c => c.course_id + ": " + c.name))
+        .then(classArray =>{
+          const el = document.querySelector(".list");
+          el.innerHTML = " ";
+          for (let i = 0; i < classArray.length; i += 1) {
+            listOfClasses =
+              "<li>" + classArray[i]+ "</li>";
+            el.innerHTML += listOfClasses;
+          }
+          return classArray;
+        })
+        .then(res => {
+          console.log(res)
+          return res;
+        })
+    }
+  </script>
+</body>
+
+</html>
